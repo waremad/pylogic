@@ -18,3 +18,6 @@ def FullAdd(a,b,x=0):
     c,s = HalfAdd(a,b)
     c,s2 = HalfAdd(c,x)
     return c,OR(s,s2)
+
+def EightBitAdd(a,b):
+    pass
