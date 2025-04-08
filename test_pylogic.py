@@ -38,3 +38,64 @@ def test_FullAdd():
     assert FullAdd(1,0,1) == (0,1)
     assert FullAdd(1,1,0) == (0,1)
     assert FullAdd(1,1,1) == (1,1)
+
+def TenToTwoEight(n):#10進数から2進数8bitに変換
+    bit = 8
+    out = ""
+    for i in range(bit):
+        out = str(int(n%2)) + out
+        n = int(n//2)
+    return out
+
+def test_TenToTwoEight():
+    assert TenToTwoEight(   0) == "00000000"
+    assert TenToTwoEight(   1) == "00000001"
+    assert TenToTwoEight(  10) == "00001010"
+    assert TenToTwoEight(  57) == "00111001"
+    assert TenToTwoEight( 127) == "01111111"
+    assert TenToTwoEight(  -1) == "11111111"
+    assert TenToTwoEight(  -5) == "11111011"
+    assert TenToTwoEight( -15) == "11110001"
+    assert TenToTwoEight(-127) == "10000001"
+    assert TenToTwoEight(-128) == "10000000"
+
+def TwoToTenEight(self):#2進数8bitから10進数に変換
+    bit = 8
+    minus = self[0] == "1"
+    #print("self[0],minus",self[0],minus)
+    self = self[bit-1:0:-1]
+    out = 0
+    n = 1
+    for i in range(bit-1):
+        out += int(self[i])*n
+        n *= 2
+    if minus:
+        out += -2**(bit-1)
+    return out
+
+def test_TwoToTenEight():
+    assert TwoToTenEight("00000000")  ==    0
+    assert TwoToTenEight("00000001")  ==    1
+    assert TwoToTenEight("00001010")  ==   10
+    assert TwoToTenEight("00111001")  ==   57
+    assert TwoToTenEight("01111111")  ==  127
+    assert TwoToTenEight("11111111")  ==   -1
+    assert TwoToTenEight("11111011")  ==   -5
+    assert TwoToTenEight("11110001")  ==  -15
+    assert TwoToTenEight("10000001")  == -127
+    assert TwoToTenEight("10000000")  == -128
+
+def test_EightBitAdd():
+    num = [1,2,3,5,7,11,99,28,6,57]
+    for i in num:
+        for j in num:
+            #print("i,j,i+j",i,j,i+j)
+            assert EightBitAdd(TenToTwoEight(i),TenToTwoEight(j)) == TenToTwoEight(i+j)
+        
+def test_EightBitSub():
+    num = [1,2,3,5,7,11,99,28,6,57]
+    for i in num:
+        for j in num:
+            #print("i,j,i+j",i,j,i+j)
+            assert EightBitSub(TenToTwoEight(i),TenToTwoEight(j)) == TenToTwoEight(i-j)
+
