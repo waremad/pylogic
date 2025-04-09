@@ -1,3 +1,5 @@
+global bit
+bit = 8
 
 def NOT(a):
     return str(-int(a)+1)
@@ -25,7 +27,7 @@ def point(self,i,n):#selfのi番目をnにする
     return "".join(self)
 
 def bitnum(n):#bitをそろえる
-    bit = 8
+    global bit
 
     n = "0"*bit + n
     n = n[::-1]
@@ -34,7 +36,7 @@ def bitnum(n):#bitをそろえる
     return n
 
 def EightBitAdd(a,b):#8bit加算器
-    bit = 8
+    global bit
     out = ""
     s = 0
     #print("a,b",a,b)
@@ -48,7 +50,7 @@ def EightBitAdd(a,b):#8bit加算器
     return out
 
 def EightBitSub(a,b):#8bit減算器
-    bit = 8
+    global bit
     
     for i in range(bit):
         b = point(b,i,NOT(b[i]))
@@ -57,7 +59,7 @@ def EightBitSub(a,b):#8bit減算器
     return EightBitAdd(a,b)
 
 def EqualAB(a,b):#aとbが等しいか
-    bit = 8
+    global bit
     a = bitnum(a)
     b = bitnum(b)
 
@@ -68,7 +70,7 @@ def EqualAB(a,b):#aとbが等しいか
     return out
 
 def MoreThanA(a,b):#aがbより大きいか
-    bit = 8
+    global bit
     a = bitnum(a)
     b = bitnum(b)
     out = bitnum("0")
@@ -93,3 +95,39 @@ def MoreThanA(a,b):#aがbより大きいか
 def MoreEqualA(a,b):#aがb以上か
     return OR(MoreThanA(a,b),EqualAB(a,b))
 
+def EightOneBitMul(a,b):#8bitと1bitの乗算
+    #print("a,b",a,b,1)
+    global bit
+    a = bitnum(a)
+    b = ("0" + b)[-1]
+    #print("b",b)
+    for i in range(bit):
+        a = point(a,i,AND(a[i],b))
+    #print("a",a)
+    return a
+
+def EightBitMul(a,b):#8bit乗算器
+    #print("a,b",a,b)
+    global bit
+    a = bitnum(a)
+    b = bitnum(b)
+    b = b[::-1]
+    out = bitnum("0")
+    BIT = ""
+    for i in range(bit):
+        print("out,EightOneBitMul(a,b[i])",out,EightOneBitMul(a,b[i]))
+        out = EightBitAdd(out,EightOneBitMul(a,b[i]))
+        a = a[1:] + "0"
+    return out
+
+def EightBitDiv(a,b):#8bit徐算器（割り切り）
+    pass
+
+def EightBitRem(a,b):#8bit余算器（余り）
+    pass
+
+def IFELSE(DO,ELSE,how):#ある条件によって異なる実行をする
+    pass
+
+def FOR(self,n,i=0):#ある処理を指定した回数ループする
+    pass

@@ -144,3 +144,25 @@ def test_MoreEqualA():
     assert MoreEqualA("0110","00000000") == "1"
     assert MoreEqualA("00000001","00000000") == "1"
 
+def test_EightOneBitMul():
+    assert EightOneBitMul("0","0") == "00000000"
+    assert EightOneBitMul("11111111","0") == "00000000"
+    assert EightOneBitMul("11111111","1") == "11111111"
+    assert EightOneBitMul("10110010","1") == "10110010"
+
+def test_EightBitMul():
+    num = [
+        0,1,2,3,4,7,8,9,14,15,-1,-2,-3,-4,-7,-8,-9,-14,-15]
+    for i in num:
+        for j in num:
+            #print("i,j,i+j",i,j,i+j)
+            assert EightBitMul(TenToTwoEight(i),TenToTwoEight(j)) == TenToTwoEight(i*j)
+
+
+
+"""
+-1
+111
+111*111
+
+"""
