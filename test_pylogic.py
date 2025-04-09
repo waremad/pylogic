@@ -119,3 +119,28 @@ def test_EightBitSub():
             #print("i,j,i+j",i,j,i+j)
             assert EightBitSub(TenToTwoEight(i),TenToTwoEight(j)) == TenToTwoEight(i-j)
 
+def test_EqualAB():
+    assert EqualAB("0000","00000000") == "1"
+    assert EqualAB("0001","00000001") == "1"
+    assert EqualAB("1000","00001000") == "1"
+    assert EqualAB("0101","00001010") == "0"
+    assert EqualAB("0110","00000000") == "0"
+
+def test_MoreThanA():
+    assert MoreThanA("0000","00000000") == "0"
+    assert MoreThanA("0001","00000001") == "0"
+    assert MoreThanA("1000","00001000") == "0"
+    assert MoreThanA("0101","00001010") == "0"
+    assert MoreThanA("0110","00000000") == "1"
+    assert MoreThanA("0110","00000000") == "1"
+    assert MoreThanA("00000001","00000000") == "1"
+
+def test_MoreEqualA():
+    assert MoreEqualA("0000","00000000") == "1"
+    assert MoreEqualA("0001","00000001") == "1"
+    assert MoreEqualA("1000","00001000") == "1"
+    assert MoreEqualA("0101","00001010") == "0"
+    assert MoreEqualA("0110","00000000") == "1"
+    assert MoreEqualA("0110","00000000") == "1"
+    assert MoreEqualA("00000001","00000000") == "1"
+

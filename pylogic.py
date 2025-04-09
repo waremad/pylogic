@@ -26,13 +26,11 @@ def point(self,i,n):#selfのi番目をnにする
 
 def bitnum(n):#bitをそろえる
     bit = 8
-    if bit < len(n):
-        n = n[::-1]
-        n = n[:bit]
-        return n[::-1]
 
-    for i in range(bit - len(n)):
-        n = "0" + n
+    n = "0"*bit + n
+    n = n[::-1]
+    n = n[:bit]
+    n = n[::-1]
     return n
 
 def EightBitAdd(a,b):#8bit加算器
@@ -58,11 +56,40 @@ def EightBitSub(a,b):#8bit減算器
     
     return EightBitAdd(a,b)
 
+def EqualAB(a,b):#aとbが等しいか
+    bit = 8
+    a = bitnum(a)
+    b = bitnum(b)
+
+    out = "1"
+    for i in range(bit):
+        out = AND(out,NOT(XOR(a[i],b[i])))
+    
+    return out
+
 def MoreThanA(a,b):#aがbより大きいか
-    pass
+    bit = 8
+    a = bitnum(a)
+    b = bitnum(b)
+    out = bitnum("0")
+    for i in range(bit):
+        out = point(out,-1,OR(
+            AND(
+                AND(
+                    EqualAB(a[i],"1"),
+                    XOR(a[i],b[i])),
+                EqualAB(out[-2],"0")),
+            out[-1]))
+        out = point(out,-2,OR(
+            AND(
+                AND(
+                    EqualAB(b[i],"1"),
+                    XOR(a[i],b[i])),
+                EqualAB(out[-1],"0")),
+            out[-2]))
+        print("a,b,i,out",a,b,i,out)
+    return NOT(EightBitSub(out,bitnum("1"))[-1])
 
-def MoreEqualB(a,b):#aがb以上か
-    pass
+def MoreEqualA(a,b):#aがb以上か
+    return OR(MoreThanA(a,b),EqualAB(a,b))
 
-def EqualB(a,b):#aとbが等しいか
-    pass
