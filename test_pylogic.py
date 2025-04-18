@@ -1,4 +1,4 @@
-from pylogic import * 
+from pylogic import *
 
 def test_NOT():
     assert NOT("0") == "1"
@@ -111,7 +111,7 @@ def test_EightBitAdd():
         for j in num:
             #print("i,j,i+j",i,j,i+j)
             assert EightBitAdd(TenToTwoEight(i),TenToTwoEight(j)) == TenToTwoEight(i+j)
-        
+
 def test_EightBitSub():
     num = [1,2,3,5,7,11,99,28,6,57]
     for i in num:
